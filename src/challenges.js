@@ -12,7 +12,7 @@ const repeatedWords = [
   "disobedience",
   "matter"
 ];
-
+console.log();
 function howManyTimes() {}
 
 
