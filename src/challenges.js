@@ -12,31 +12,47 @@ const repeatedWords = [
   "disobedience",
   "matter"
 ];
-console.log();
-function howManyTimes() {}
 
+function howManyTimes(arr, val) {
+  return arr.filter(i => i === val).length
+}
 
-
+console.log(howManyTimes(repeatedWords, "matter"));
 
 // Iteration 2 | Number Sequence
-function createSequence() {}
+function createSequence(num) {
+  if (num === 0) return []
+  const result = []
+  for (let i = 0; i <= num; i++) {
+    result.push(i)
+  }
+  return result
+}
 
-
+console.log(createSequence(0));
 
 
 // Iteration 3 | Multiply for Each
 const numbers = [1, 2, 5, 10, 13, 50];
 
-function multiplyBy() {}
+function multiplyBy(arr, multiplier) {
+  arr.forEach((val, idx, arr) => arr[idx] = val * multiplier)
+  return arr
+}
 
-
+console.log(multiplyBy(numbers, 3));
 
 
 // Iteration 4 | Filter Out
 const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 const toRemove = ["cat", "dog"];
 
-function filterOut() {}
+function filterOut(originArr, filterArr) {
+  if (!originArr.length) return null
+  return originArr.filter(i => !filterArr.includes(i))
+}
+
+console.log(filterOut(original, toRemove));
 
 
 
@@ -56,9 +72,12 @@ const duplicateWords = [
   "bring"
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(arr) {
+  if (!arr.length) return null
+  return [...new Set(arr)]
+}
 
-
+console.log(uniquifyArray(duplicateWords));
 
 
 // Bonus: Iteration 6 | Product of Adjacent Numbers
@@ -85,4 +104,44 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+const test = [
+  [1, 2, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 4, 3, 4, 5]
+];
+
+function greatestProduct(originMatrix) {
+  const rotateArr = []
+  for (let i = 0; i < originMatrix.length; i++) {
+    for (let idx = 0; idx < originMatrix[i].length; idx++) {
+      if (!rotateArr[idx]) {
+        rotateArr[idx] = [originMatrix[i][idx]]
+      }
+      else {
+        rotateArr[idx].unshift(originMatrix[i][idx])
+      }
+    }
+  }
+  const firstResult = countMultiplyOfArr(originMatrix)
+  const secondResult = countMultiplyOfArr(rotateArr)
+  return Math.max(firstResult, secondResult)
+}
+
+function countMultiplyOfArr(arr) {
+  let result = 0
+  for (let i = 0; i < arr.length; i++) {
+    for (let idx = 0; idx <= arr[i].length - 4; idx++) {
+      const slicedArr = arr[i].slice(idx, idx + 4)
+      const count = slicedArr.reduce((acc, curr) => acc * curr, 1)
+      if (count > result) {
+        result = count
+      }
+    }
+  }
+  return result
+}
+
+
+console.log(greatestProduct(test));
